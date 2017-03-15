@@ -1,0 +1,11 @@
+<div *ngIf="depth===0">
+  <button ion-item (click)="deepClick($event)">
+    Click Me!
+  </button>
+</div>
+<div *ngIf="depth>0">
+  <recursive-output
+    [depth]="depth - 1"
+    [cb]="doCbFunction"
+    (clicked)="onClicked($event)"></recursive-output>
+</div>

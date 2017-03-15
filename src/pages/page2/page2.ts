@@ -10,6 +10,7 @@ export class Page2 {
   selectedItem: any;
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
+  doCbFunction: Function;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     // If we navigated to this page, we will have an item available as a nav param
@@ -27,6 +28,7 @@ export class Page2 {
         icon: this.icons[Math.floor(Math.random() * this.icons.length)]
       });
     }
+    this.doCbFunction = ($event, depth) => this.cbFunction($event, depth);
   }
 
   itemTapped(event, item) {
@@ -34,5 +36,16 @@ export class Page2 {
     this.navCtrl.push(Page2, {
       item: item
     });
+  }
+
+
+  cbFunction($event, depth) {
+    console.log(new Date().getTime(), 'ROOT CB', depth, $event);
+    this.itemTapped($event, {title: "cbFunction!"});
+  }
+
+  onClicked(data: any) {
+    console.log(new Date().getTime(), 'ROOT CLICKED', data.depth, data.$event);
+    // this.itemTapped(data.$event, {title: "onClicked!"});
   }
 }
